@@ -3,48 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DJ Mixer Booth</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Wave Break - DJ Mixer Booth</title>
 
-   
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
-      <div class="header-container">
+
+    <div class="header-container">
         <div class="header-bar">
-        <div class="header-title"> Wave Break </div>
-         <div class="upload-container">
-             <label for="fileUpload" class="upload-label">UPLOAD</label>
-    <input type="file" id="fileUpload" class="upload-input">
-   
-</div>
-    </div>
+            <div class="header-title">Wave Break</div>
+
+            <div class="upload-container">
+                <label for="fileUpload1" class="upload-label">UPLOAD 1</label>
+                <input type="file" id="fileUpload1" class="upload-input" accept="audio/*">
+
+                <label for="fileUpload2" class="upload-label ml-4">UPLOAD 2</label>
+                <input type="file" id="fileUpload2" class="upload-input" accept="audio/*">
+            </div>
+        </div>
 
         <div class="middle-bar"></div>
-    
     </div>
 
-<div class="title">DJ Mixer Booth</div>
-<div class="mixer-wrapper">
-<div class="mixer">
-    <div class="spinningthings" id="left">
-        <div class="diskthinginsidespinningthing">1</div>
+    <div class="title">DJ Mixer Booth</div>
+
+    <div class="mixer-wrapper">
+        <div class="mixer">
+
+        
+            <div class="deck-side">
+                <div class="text-white text-center text-sm mb-2" id="deck-1-status">Deck 1: Idle</div>
+
+                <div class="deck-platter-group">
+                    <div class="spinningthings" id="deck-1">
+                        <div class="diskthinginsidespinningthing">1</div>
+                    </div>
+
+                    <div class="pitch-fader-container">
+                        <label class="text-white text-xs text-center mb-1">PITCH</label>
+                        <div class="pitch-sliders vertical-fader" id="pitch-fader-1-track">
+                            <div class="pitch-knobs" id="pitch-knob-1"></div>
+                        </div>
+                        <span class="pitch-indicator text-white text-xs mt-1" id="pitch-value-1">0.0%</span>
+                    </div>
+                </div>
+
+                <button id="play-pause-1" class="upload-label control-button mt-4">
+                    Play
+                </button>
+            </div>
+
+          
+            <div class="center-controls">
+
+                <div class="eq-group">
+
+                    <div class="eq-stack">
+                        <div class="eq-channel">
+                            <label class="text-white text-xs">HI</label>
+                            <div class="knob-container" id="eq-hi-1-track">
+                                <div class="rotary-knob" id="eq-hi-1-knob"></div>
+                            </div>
+                        </div>
+                        <div class="eq-channel">
+                            <label class="text-white text-xs">MID</label>
+                            <div class="knob-container" id="eq-mid-1-track">
+                                <div class="rotary-knob" id="eq-mid-1-knob"></div>
+                            </div>
+                        </div>
+                        <div class="eq-channel">
+                            <label class="text-white text-xs">LOW</label>
+                            <div class="knob-container" id="eq-low-1-track">
+                                <div class="rotary-knob" id="eq-low-1-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="eq-stack">
+                        <div class="eq-channel">
+                            <label class="text-white text-xs">HI</label>
+                            <div class="knob-container" id="eq-hi-2-track">
+                                <div class="rotary-knob" id="eq-hi-2-knob"></div>
+                            </div>
+                        </div>
+                        <div class="eq-channel">
+                            <label class="text-white text-xs">MID</label>
+                            <div class="knob-container" id="eq-mid-2-track">
+                                <div class="rotary-knob" id="eq-mid-2-knob"></div>
+                            </div>
+                        </div>
+                        <div class="eq-channel">
+                            <label class="text-white text-xs">LOW</label>
+                            <div class="knob-container" id="eq-low-2-track">
+                                <div class="rotary-knob" id="eq-low-2-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="faders-group">
+                    <div class="fader-container">
+                        <label class="text-white text-xs mb-2">VOL 1</label>
+                        <div class="sliders vol-fader" id="fader-1-track">
+                            <div class="knobs" id="knob-1"></div>
+                        </div>
+                    </div>
+
+                    <div class="fader-container">
+                        <label class="text-white text-xs mb-2">VOL 2</label>
+                        <div class="sliders vol-fader" id="fader-2-track">
+                            <div class="knobs" id="knob-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="crossfader-container">
+                    <label class="text-white text-xs mb-2">CROSSFADER</label>
+                    <div class="sliders horizontal-fader" id="cross-fader-track">
+                        <div class="knobs" id="cross-fader-knob"></div>
+                    </div>
+
+                    <div class="flex justify-between w-full text-white text-xs mt-1">
+                        <span>A</span>
+                        <span>B</span>
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="deck-side">
+                <div class="text-white text-center text-sm mb-2" id="deck-2-status">Deck 2: Idle</div>
+
+                <div class="deck-platter-group">
+
+                    <div class="pitch-fader-container">
+                        <label class="text-white text-xs text-center mb-1">PITCH</label>
+                        <div class="pitch-sliders vertical-fader" id="pitch-fader-2-track">
+                            <div class="pitch-knobs" id="pitch-knob-2"></div>
+                        </div>
+                        <span class="pitch-indicator text-white text-xs mt-1" id="pitch-value-2">0.0%</span>
+                    </div>
+
+                    <div class="spinningthings" id="deck-2">
+                        <div class="diskthinginsidespinningthing">2</div>
+                    </div>
+                </div>
+
+                <button id="play-pause-2" class="upload-label control-button mt-4">
+                    Play
+                </button>
+            </div>
+
+        </div>
     </div>
-    <div class="sliders" id="left">
-        <div class="knobs" id="left"></div>
-    </div>
-    <div class="sliders" id="right">
-        <div class="knobs" id="left"></div>
-    </div>
-    <div class="spinningthings" id="right">
-        <div class="diskthinginsidespinningthing">2</div>
-    </div>
-</div>
-</div>
- 
+
+    <script src="logic.js"></script>
 </body>
 </html>
-
-
-</html>
-
-
