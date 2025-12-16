@@ -223,6 +223,9 @@ body {
     cursor: grabbing;
 }
 
+.pitch-knobs, .knobs, .rotary-knob {
+  touch-action: none;
+}
 
 .center-controls {
     display: flex;
