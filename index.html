@@ -6,6 +6,7 @@
     <title>Wave Break - DJ Mixer Booth</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/soundtouch-ts@0.1.1/dist/soundtouch.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -34,6 +35,14 @@
 
         
             <div class="deck-side">
+                <div class="progress-container">
+                    <input type="range" id="progress-1" value="0" min="0" step="0.01">
+                    <div class="time-display">
+                      <span id="current-1">0:00</span>
+                      <span id="duration-1">0:00</span>
+                    </div>
+                  </div>
+                  
                 <div class="text-white text-center text-sm mb-2" id="deck-1-status">Deck 1: Idle</div>
 
                 <div class="deck-platter-group">
@@ -41,12 +50,12 @@
                         <div class="diskthinginsidespinningthing">1</div>
                     </div>
 
-                    <div class="pitch-fader-container">
-                        <label class="text-white text-xs text-center mb-1">PITCH</label>
-                        <div class="pitch-sliders vertical-fader" id="pitch-fader-1-track">
-                            <div class="pitch-knobs" id="pitch-knob-1"></div>
+                    <div class="speed-fader-container">
+                        <label class="text-white text-xs text-center mb-1">SPEED</label>
+                        <div class="speed-sliders vertical-fader" id="speed-fader-1-track">
+                            <div class="speed-knobs" id="speed-knob-1"></div>
                         </div>
-                        <span class="pitch-indicator text-white text-xs mt-1" id="pitch-value-1">0.0%</span>
+                        <span class="speed-indicator text-white text-xs mt-1" id="speed-value-1">0.0%</span>
                     </div>
                 </div>
 
@@ -137,16 +146,24 @@
 
            
             <div class="deck-side">
+                <div class="progress-container">
+                    <input type="range" id="progress-2" value="0" min="0" step="0.01">
+                    <div class="time-display">
+                      <span id="current-2">0:00</span>
+                      <span id="duration-2">0:00</span>
+                    </div>
+                  </div>
+                  
                 <div class="text-white text-center text-sm mb-2" id="deck-2-status">Deck 2: Idle</div>
 
                 <div class="deck-platter-group">
 
-                    <div class="pitch-fader-container">
-                        <label class="text-white text-xs text-center mb-1">PITCH</label>
-                        <div class="pitch-sliders vertical-fader" id="pitch-fader-2-track">
-                            <div class="pitch-knobs" id="pitch-knob-2"></div>
+                    <div class="speed-fader-container">
+                        <label class="text-white text-xs text-center mb-1">SPEED</label>
+                        <div class="speed-sliders vertical-fader" id="speed-fader-2-track">
+                            <div class="speed-knobs" id="speed-knob-2"></div>
                         </div>
-                        <span class="pitch-indicator text-white text-xs mt-1" id="pitch-value-2">0.0%</span>
+                        <span class="speed-indicator text-white text-xs mt-1" id="speed-value-2">0.0%</span>
                     </div>
 
                     <div class="spinningthings" id="deck-2">
