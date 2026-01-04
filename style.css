@@ -22,7 +22,7 @@ body {
     --fader-width: clamp(8px, 0.8vw, 15px); 
     --knob-size-vertical: clamp(20px, 2.5vw, 30px);
     --knob-height-vertical: clamp(10px, 1.2vw, 15px);
-    --pitch-track-height: clamp(150px, 18vw, 250px);
+    --speed-track-height: clamp(150px, 18vw, 250px);
     --platter-size: clamp(140px, 16vw, 250px); 
 }
 
@@ -122,6 +122,40 @@ body {
     min-width: 250px; 
 }
 
+.progress-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .progress-container input[type="range"] {
+    width: 100%;
+    appearance: none;
+    height: 6px;
+    background: #444;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .progress-container input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0,0,0,0.6);
+  }
+  
+  .time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: white;
+    opacity: 0.8;
+  }
+  
+
 .deck-platter-group {
     display: flex;
     align-items: center; 
@@ -173,7 +207,7 @@ body {
 }
 
 
-.pitch-fader-container {
+.speed-fader-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,9 +217,9 @@ body {
     flex-shrink: 0;
 }
 
-.pitch-sliders {
+.speed-sliders {
     width: var(--fader-width); 
-    height: var(--pitch-track-height); 
+    height: var(--speed-track-height); 
     margin-top: 0.5vw; 
     background: 
         linear-gradient(to top, 
@@ -202,7 +236,7 @@ body {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
 }
 
-.pitch-knobs {
+.speed-knobs {
     width: var(--knob-size-vertical);
     height: var(--knob-height-vertical);
     border-radius: 4px;
@@ -217,12 +251,15 @@ body {
     top: calc(50% - var(--knob-height-vertical) / 2); 
 }
 
-.pitch-knobs:active {
+.speed-knobs:active {
     box-shadow: 0 0 10px 5px #fff; 
     background: #eee;
     cursor: grabbing;
 }
 
+.speed-knobs, .knobs, .rotary-knob {
+  touch-action: none;
+}
 
 .center-controls {
     display: flex;
@@ -382,7 +419,7 @@ body {
         --fader-width: 10px;
         --knob-size-vertical: 30px;
         --knob-height-vertical: 15px;
-        --pitch-track-height: 150px; 
+        --speed-track-height: 150px; 
         --platter-size: 150px; 
     }
     
@@ -417,12 +454,12 @@ body {
         gap: 20px;
     }
 
-    .pitch-fader-container {
+    .speed-fader-container {
         height: var(--platter-size);
         margin-left: 0;
     }
 
-    .pitch-knobs {
+    .speed-knobs {
         top: calc(50% - var(--knob-height-vertical) / 2);
     }
 
