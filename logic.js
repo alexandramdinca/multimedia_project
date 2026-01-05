@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const src = audioCtx.createMediaElementSource(audioEl);
   
-    // --- EQ filters (same as before) ---
     const low = audioCtx.createBiquadFilter();
     low.type = "lowshelf";
     low.frequency.value = 250;
@@ -58,28 +57,25 @@ document.addEventListener("DOMContentLoaded", () => {
     hi.connect(deckGain);
     deckGain.connect(masterGain);
   
-    // --- Two selectable input paths into the EQ ---
     const normalIn = audioCtx.createGain();
     normalIn.gain.value = 1;
   
     const vocalIn = audioCtx.createGain();
     vocalIn.gain.value = 0;
   
-    // Normal path: src -> normalIn -> low
     src.connect(normalIn);
     normalIn.connect(low);
   
-    // Vocal-cut path: (L - R) -> vocalIn -> low
     const splitter = audioCtx.createChannelSplitter(2);
     src.connect(splitter);
   
     const invertR = audioCtx.createGain();
     invertR.gain.value = -1;
   
-    const sum = audioCtx.createGain(); // sums signals (additive)
-    splitter.connect(sum, 0);          // Left
-    splitter.connect(invertR, 1);      // Right -> invert
-    invertR.connect(sum);              // Left + (-Right) = L - R
+    const sum = audioCtx.createGain(); 
+    splitter.connect(sum, 0);          
+    splitter.connect(invertR, 1);      
+    invertR.connect(sum);              
   
     sum.connect(vocalIn);
     vocalIn.connect(low);
