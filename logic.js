@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function dbFromKnobAngle(angleDeg) {
-    return (angleDeg / 120) * 12;
+    return (angleDeg / 120) * 24;
   }
 
   function playbackRateFromSpeedPercent(pct) {
@@ -30,35 +30,59 @@ document.addEventListener("DOMContentLoaded", () => {
     const audioEl = new Audio();
     audioEl.preload = "auto";
     audioEl.crossOrigin = "anonymous";
-
+  
     const src = audioCtx.createMediaElementSource(audioEl);
+  
     const low = audioCtx.createBiquadFilter();
     low.type = "lowshelf";
     low.frequency.value = 250;
     low.gain.value = 0;
-
+  
     const mid = audioCtx.createBiquadFilter();
     mid.type = "peaking";
-    mid.frequency.value = 1000;
-    mid.Q.value = 1;
+    mid.frequency.value = 1500;
+    mid.Q.value = 3;
     mid.gain.value = 0;
-
+  
     const hi = audioCtx.createBiquadFilter();
     hi.type = "highshelf";
     hi.frequency.value = 4000;
     hi.gain.value = 0;
-
+  
     const deckGain = audioCtx.createGain();
     deckGain.gain.value = 0.8;
-   
-    src.connect(low);
+  
     low.connect(mid);
     mid.connect(hi);
     hi.connect(deckGain);
     deckGain.connect(masterGain);
-
-    return { audioEl, deckGain, low, mid, hi };
+  
+    const normalIn = audioCtx.createGain();
+    normalIn.gain.value = 1;
+  
+    const vocalIn = audioCtx.createGain();
+    vocalIn.gain.value = 0;
+  
+    src.connect(normalIn);
+    normalIn.connect(low);
+  
+    const splitter = audioCtx.createChannelSplitter(2);
+    src.connect(splitter);
+  
+    const invertR = audioCtx.createGain();
+    invertR.gain.value = -1;
+  
+    const sum = audioCtx.createGain(); 
+    splitter.connect(sum, 0);          
+    splitter.connect(invertR, 1);      
+    invertR.connect(sum);              
+  
+    sum.connect(vocalIn);
+    vocalIn.connect(low);
+  
+    return { audioEl, deckGain, low, mid, hi, normalIn, vocalIn, vocalCutOn: false };
   }
+  
 
   const deckAudio = {
     1: createDeckAudio(),
@@ -71,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       platter: document.getElementById("deck-1"),
       statusText: document.getElementById("deck-1-status"),
       playPauseBtn: document.getElementById("play-pause-1"),
+      vocalBtn: document.getElementById("vocal-cut-1"),
       faderKnob: document.getElementById("knob-1"),
       faderTrack: document.getElementById("fader-1-track"),
       eq: {
@@ -87,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       platter: document.getElementById("deck-2"),
       statusText: document.getElementById("deck-2-status"),
       playPauseBtn: document.getElementById("play-pause-2"),
+      vocalBtn: document.getElementById("vocal-cut-2"),
       faderKnob: document.getElementById("knob-2"),
       faderTrack: document.getElementById("fader-2-track"),
       eq: {
@@ -380,6 +406,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupEQ(1);
   setupEQ(2);
+
+  function setupVocalCut(deckId) {
+    const ui = decks[deckId];
+    const audio = deckAudio[deckId];
+  
+    ui.vocalBtn.addEventListener("click", () => {
+      ensureAudioRunning();
+  
+      audio.vocalCutOn = !audio.vocalCutOn;
+  
+      if (audio.vocalCutOn) {
+        audio.normalIn.gain.value = 0;
+        audio.vocalIn.gain.value = 1;
+        ui.vocalBtn.textContent = "Vocal Cut: ON";
+        ui.statusText.textContent = `Deck ${deckId}: Vocal Cut ON`;
+      } else {
+        audio.normalIn.gain.value = 1;
+        audio.vocalIn.gain.value = 0;
+        ui.vocalBtn.textContent = "Vocal Cut: OFF";
+        ui.statusText.textContent = `Deck ${deckId}: Vocal Cut OFF`;
+      }
+    });
+  }
+  setupVocalCut(1);
+  setupVocalCut(2);  
 
   function setupPlatterToggle(deckId) {
     const ui = decks[deckId];
